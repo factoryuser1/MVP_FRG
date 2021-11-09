@@ -1,27 +1,28 @@
-package com.mvp.crud.service;
+package com.mvp.crud.impl;
 
 import com.mvp.crud.model.Soldier;
 import com.mvp.crud.repository.SoldierRepository;
+import com.mvp.crud.service.SoliderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor //for the repository injection
+public class SoldierServiceImpl implements SoliderService {
 
-public class SoldierService {
     private final SoldierRepository soldierRepository;
-
-    public Iterable <Soldier> findAll() {
+    @Override
+    public Iterable<Soldier> findAllSoldiers() {
         return soldierRepository.findAll();
     }
-
-    public Soldier findById(Long id) {
+    @Override
+    public Soldier findSoliderById(Long id) {
         return soldierRepository.findById(id).orElse(null);
     }
 
 }
 
-//public class SoldierService {
+//public class SoldierServiceImpl {
 //
 //    private final SoldierRepository soldierRepository;
 //
