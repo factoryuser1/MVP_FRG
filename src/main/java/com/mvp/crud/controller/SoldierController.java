@@ -1,8 +1,11 @@
 package com.mvp.crud.controller;
 
-import com.mvp.crud.model.Soldier;
+import com.mvp.crud.dto.SoldierDto;
 import com.mvp.crud.impl.SoldierServiceImpl;
+import com.mvp.crud.model.Soldier;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin("*")
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class SoldierController {
 
     private final SoldierServiceImpl soldierServiceImpl;
+
     //1. find all soldiers
     @GetMapping
     public Iterable<Soldier> findAllSoldiers() {
@@ -24,19 +28,26 @@ public class SoldierController {
     public Soldier findSoldierById(@PathVariable Long id) {
         return soldierServiceImpl.findSoliderById(id);
     }
-//
-//    @PostMapping
-//    public Soldier saveSoldier(@RequestBody Soldier soldier) {
-//        return soldierService.save(soldier);
-//    }
-//
-//    @PutMapping("/{id}")
-//    public Soldier updateSoldier(@PathVariable Long id, @RequestBody Soldier soldier) {
-//        return soldierService.update(id, soldier);
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    public void deleteSoldier(@PathVariable Long id) {
-//        soldierService.delete(id);
-//    }
+
+    //3. add new soldier
+    @PostMapping
+    public Soldier addSoldier(@RequestBody Soldier soldier) {
+        return soldierServiceImpl.addSolider(soldier);
+    }
+
+    //4. update soldier by id
+    @PatchMapping("/{id}")
+    public ResponseEntity<SoldierDto> updateSoldier(@PathVariable Long id, @RequestBody SoldierDto soldierDto) {
+
+        SoldierDto soldierResponseDTO = soldierServiceImpl.updateSolider(id, soldierDto);
+        return new ResponseEntity<>(soldierResponseDTO, HttpStatus.OK);
+    }
+
+    //5. delete soldier by id
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteSoldier(@PathVariable Long id) {
+        soldierServiceImpl.deleteSoldier(id);
+        return new ResponseEntity<>(String.format("Soldier with id %d has been deleted", id), HttpStatus.OK);
+    }
+
 }

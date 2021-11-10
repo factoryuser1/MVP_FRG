@@ -1,13 +1,12 @@
 package com.mvp.crud.controller;
 
-import com.mvp.crud.model.Spouse;
+import com.mvp.crud.dto.SpouseDto;
 import com.mvp.crud.impl.SpouseServiceImpl;
+import com.mvp.crud.model.Spouse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
-@CrossOrigin
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/frg/spouse")
 @ControllerAdvice
@@ -15,6 +14,7 @@ import java.util.Optional;
 public class SpouseController {
 
     private final SpouseServiceImpl spouseServiceImpl;
+
     //1. find all Spouses
     @GetMapping
     public Iterable<Spouse> findSpouses() {
@@ -23,8 +23,14 @@ public class SpouseController {
 
     //2. find Spouse by id
     @GetMapping("/{id}")
-    public Optional<Spouse> findSpouseById(@PathVariable Long id) {
+    public Spouse findSpouseById(@PathVariable Long id) {
         return spouseServiceImpl.findSpouseById(id);
+    }
+
+    //3. add new spouse
+    @PostMapping
+    public Spouse addSpouse(@RequestBody Spouse spouse){
+        return spouseServiceImpl.addSpouse(spouse);
     }
 
 }
