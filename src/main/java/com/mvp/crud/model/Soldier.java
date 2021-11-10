@@ -3,6 +3,8 @@ package com.mvp.crud.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -18,8 +20,10 @@ public class Soldier {
     private Long id;
     //cannot be null
     @Column(name = "first_name", nullable = false)
+    @NotBlank(message = "First name cannot be empty")
     private String firstName;
     @Column(name = "last_name", nullable = false)
+    @NotBlank(message = "Last name cannot be empty")
     private String lastName;
     @Column(name = "soldier_rank", nullable = false)
     private String soldierRank;
@@ -37,4 +41,6 @@ public class Soldier {
     private String phone;
     private String DOB;
     private String dodId;
+    //to add later
+//    private LocalDateTime soldierDateTimeaAdded = LocalDateTime.now();
 }

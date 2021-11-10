@@ -5,8 +5,8 @@ import com.mvp.crud.model.Soldier;
 
 public interface SoldierService {
     Iterable<Soldier> findAllSoldiers();
-    Soldier findSoliderById(Long id);
-    Soldier addSolider(Soldier solider);
+    SoldierDto findSoliderById(Long id);
+    SoldierDto addSolider(SoldierDto soliderDto);
     SoldierDto updateSolider(Long id, SoldierDto soliderDto);
     void deleteSoldier(Long id);
 }

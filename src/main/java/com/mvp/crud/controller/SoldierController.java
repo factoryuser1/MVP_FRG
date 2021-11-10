@@ -25,19 +25,21 @@ public class SoldierController {
 
     //2. find soldier by id
     @GetMapping("/{id}")
-    public Soldier findSoldierById(@PathVariable Long id) {
-        return soldierServiceImpl.findSoliderById(id);
+    public ResponseEntity<SoldierDto> findSoldierById(@PathVariable(name = "id") Long id) {
+        SoldierDto soldierResponseDTO = soldierServiceImpl.findSoliderById(id);
+        return new ResponseEntity<>(soldierResponseDTO, HttpStatus.OK);
     }
 
-    //3. add new soldier
+    //3. add a new soldier
     @PostMapping
-    public Soldier addSoldier(@RequestBody Soldier soldier) {
-        return soldierServiceImpl.addSolider(soldier);
+    public ResponseEntity<SoldierDto> addSoldier(@RequestBody SoldierDto soldierDto) {
+        SoldierDto soldierResponseDTO = soldierServiceImpl.addSolider(soldierDto);
+        return new ResponseEntity<>(soldierResponseDTO, HttpStatus.CREATED);
     }
 
     //4. update soldier by id
     @PatchMapping("/{id}")
-    public ResponseEntity<SoldierDto> updateSoldier(@PathVariable Long id, @RequestBody SoldierDto soldierDto) {
+    public ResponseEntity<SoldierDto> updateSoldier(@PathVariable(name = "id") Long id, @RequestBody SoldierDto soldierDto) {
 
         SoldierDto soldierResponseDTO = soldierServiceImpl.updateSolider(id, soldierDto);
         return new ResponseEntity<>(soldierResponseDTO, HttpStatus.OK);

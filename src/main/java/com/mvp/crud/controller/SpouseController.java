@@ -27,7 +27,7 @@ public class SpouseController {
         return spouseServiceImpl.findSpouseById(id);
     }
 
-    //3. add new spouse
+    //3. add a new spouse
     @PostMapping
     public Spouse addSpouse(@RequestBody Spouse spouse){
         return spouseServiceImpl.addSpouse(spouse);
