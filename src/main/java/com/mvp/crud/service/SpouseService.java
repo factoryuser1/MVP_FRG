@@ -1,10 +1,9 @@
 package com.mvp.crud.service;
 
-import com.mvp.crud.dto.SpouseDto;
-import com.mvp.crud.model.Spouse;
+import com.mvp.crud.model.SpouseEntity;
 
 public interface SpouseService {
-    Iterable<Spouse> findAllSpouses();
-    Spouse findSpouseById(Long id);
-    Spouse addSpouse(Spouse spouse);
+    Iterable<SpouseEntity> findAllSpouses();
+    SpouseEntity findSpouseById(Long id);
+    SpouseEntity addSpouse(SpouseEntity spouseEntity);
 }

@@ -1,8 +1,7 @@
 package com.mvp.crud.controller;
 
-import com.mvp.crud.dto.SpouseDto;
 import com.mvp.crud.impl.SpouseServiceImpl;
-import com.mvp.crud.model.Spouse;
+import com.mvp.crud.model.SpouseEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,20 +16,20 @@ public class SpouseController {
 
     //1. find all Spouses
     @GetMapping
-    public Iterable<Spouse> findSpouses() {
+    public Iterable<SpouseEntity> findSpouses() {
         return spouseServiceImpl.findAllSpouses();
     }
 
-    //2. find Spouse by id
+    //2. find SpouseEntity by id
     @GetMapping("/{id}")
-    public Spouse findSpouseById(@PathVariable Long id) {
+    public SpouseEntity findSpouseById(@PathVariable Long id) {
         return spouseServiceImpl.findSpouseById(id);
     }
 
-    //3. add a new spouse
+    //3. add a new spouseEntity
     @PostMapping
-    public Spouse addSpouse(@RequestBody Spouse spouse){
-        return spouseServiceImpl.addSpouse(spouse);
+    public SpouseEntity addSpouse(@RequestBody SpouseEntity spouseEntity){
+        return spouseServiceImpl.addSpouse(spouseEntity);
     }
 
 }

@@ -2,7 +2,7 @@ package com.mvp.crud.controller;
 
 import com.mvp.crud.dto.SoldierDto;
 import com.mvp.crud.impl.SoldierServiceImpl;
-import com.mvp.crud.model.Soldier;
+import com.mvp.crud.model.SoldierEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ public class SoldierController {
 
     //1. find all soldiers
     @GetMapping
-    public Iterable<Soldier> findAllSoldiers() {
+    public Iterable<SoldierEntity> findAllSoldiers() {
         return soldierServiceImpl.findAllSoldiers();
     }
 
@@ -49,7 +49,7 @@ public class SoldierController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteSoldier(@PathVariable Long id) {
         soldierServiceImpl.deleteSoldier(id);
-        return new ResponseEntity<>(String.format("Soldier with id %d has been deleted", id), HttpStatus.OK);
+        return new ResponseEntity<>(String.format("SoldierEntity with id %d has been deleted", id), HttpStatus.OK);
     }
 
 }

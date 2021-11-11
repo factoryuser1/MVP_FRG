@@ -2,7 +2,7 @@ package com.mvp.crud.impl;
 
 import com.mvp.crud.dto.SoldierDto;
 import com.mvp.crud.exception.ResourceNotFoundException;
-import com.mvp.crud.model.Soldier;
+import com.mvp.crud.model.SoldierEntity;
 import com.mvp.crud.repository.SoldierRepository;
 import com.mvp.crud.service.SoldierService;
 import lombok.RequiredArgsConstructor;
@@ -15,93 +15,94 @@ public class SoldierServiceImpl implements SoldierService {
     private final SoldierRepository soldierRepository;
 
     @Override
-    public Iterable<Soldier> findAllSoldiers() {
+    public Iterable<SoldierEntity> findAllSoldiers() {
         return soldierRepository.findAll();
     }
 
     @Override
     public SoldierDto findSoliderById(Long id) {
         //get soldier by id
-        Soldier soldierToFind = soldierRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Soldier", "id", id));
+        SoldierEntity soldierEntityToFind = soldierRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("SoldierEntity", "id", id));
         //convert entity to dto and return to controller to return to front-end without exposing the entity
-        return convertSoldierEntityToDto(soldierToFind);
+        return convertSoldierEntityToDto(soldierEntityToFind);
     }
 
     @Override
     public SoldierDto addSolider(SoldierDto soldierDto) {
         //convert dto to entity
-        Soldier soldierToAdd = convertSoldierDtoToEntity(soldierDto);
+        SoldierEntity soldierEntityToAdd = convertSoldierDtoToEntity(soldierDto);
         //save entity to DB
-        Soldier savedSoldier = soldierRepository.save(soldierToAdd);
+        SoldierEntity savedSoldierEntity = soldierRepository.save(soldierEntityToAdd);
         //convert entity to dto and return to controller to return to front-end without exposing the entity
-        return convertSoldierEntityToDto(savedSoldier);
+        return convertSoldierEntityToDto(savedSoldierEntity);
     }
 
     @Override
     public SoldierDto updateSolider(Long id, SoldierDto soldierDto) {
         //get soldier by id from the database
-        Soldier soldierToUpdate = soldierRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Soldier", "id", id));
+        SoldierEntity soldierEntityToUpdate = soldierRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("SoldierEntity", "id", id));
         //update soldier (to be refactored to automatically map the DTO fields to the entity fields using ModelMapper of ObjectMapper)
-        soldierToUpdate.setFirstName(soldierDto.getFirstName());
-        soldierToUpdate.setLastName(soldierDto.getLastName());
-        soldierToUpdate.setSoldierRank(soldierDto.getSoldierRank());
-        soldierToUpdate.setMarried(soldierDto.isMarried());
-        soldierToUpdate.setUnit(soldierDto.getUnit());
-        soldierToUpdate.setAge(soldierDto.getAge());
-        soldierToUpdate.setGender(soldierDto.getGender());
-        soldierToUpdate.setAddress(soldierDto.getAddress());
-        soldierToUpdate.setCity(soldierDto.getCity());
-        soldierToUpdate.setState(soldierDto.getState());
-        soldierToUpdate.setZip(soldierDto.getZip());
-        soldierToUpdate.setAge(soldierDto.getAge());
-        soldierToUpdate.setPhone(soldierDto.getPhone());
-        soldierToUpdate.setDOB(soldierDto.getDOB());
-        soldierToUpdate.setDodId(soldierDto.getDodId());
+//        soldierEntityToUpdate.setId(soldierDto.getId());
+        soldierEntityToUpdate.setFirstName(soldierDto.getFirstName());
+        soldierEntityToUpdate.setLastName(soldierDto.getLastName());
+        soldierEntityToUpdate.setSoldierRank(soldierDto.getSoldierRank());
+        soldierEntityToUpdate.setMarried(soldierDto.isMarried());
+        soldierEntityToUpdate.setUnit(soldierDto.getUnit());
+        soldierEntityToUpdate.setEmail(soldierDto.getEmail());
+        soldierEntityToUpdate.setGender(soldierDto.getGender());
+        soldierEntityToUpdate.setAddress(soldierDto.getAddress());
+        soldierEntityToUpdate.setCity(soldierDto.getCity());
+        soldierEntityToUpdate.setState(soldierDto.getState());
+        soldierEntityToUpdate.setZip(soldierDto.getZip());
+        soldierEntityToUpdate.setAge(soldierDto.getAge());
+        soldierEntityToUpdate.setPhone(soldierDto.getPhone());
+        soldierEntityToUpdate.setDOB(soldierDto.getDOB());
+        soldierEntityToUpdate.setDodId(soldierDto.getDodId());
         //save updated soldier to DB and return the successfully updated soldier after saving
-        Soldier updatedSoldier = soldierRepository.save(soldierToUpdate);
+        SoldierEntity updatedSoldierEntity = soldierRepository.save(soldierEntityToUpdate);
         //convert updated soldier to dto and return to controller to return to front end without exposing the entity
-        return convertSoldierEntityToDto(updatedSoldier);
+        return convertSoldierEntityToDto(updatedSoldierEntity);
     }
 
     @Override
     public void deleteSoldier(Long id) {
         //get soldier by id
-        Soldier soldierToDelete = soldierRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Soldier", "id", id));
-        soldierRepository.delete(soldierToDelete);
+        SoldierEntity soldierEntityToDelete = soldierRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("SoldierEntity", "id", id));
+        soldierRepository.delete(soldierEntityToDelete);
         //or
         //soldierRepository.deleteById(id);
     }
 
-    //convert Soldier Entity to dto using the @Builder annotation on DTO
-    public SoldierDto convertSoldierEntityToDto(Soldier soldier) {
+    //convert SoldierEntity Entity to dto using the @Builder annotation on DTO
+    public SoldierDto convertSoldierEntityToDto(SoldierEntity soldierEntity) {
         return SoldierDto.builder()
-                .id(soldier.getId())
-                .firstName(soldier.getFirstName())
-                .firstName(soldier.getFirstName())
-                .lastName(soldier.getLastName())
-                .soldierRank(soldier.getSoldierRank())
-                .isMarried(soldier.isMarried())
-                .unit(soldier.getUnit())
-                .age(soldier.getAge())
-                .gender(soldier.getGender())
-                .address(soldier.getAddress())
-                .city(soldier.getCity())
-                .state(soldier.getState())
-                .zip(soldier.getZip())
-                .age(soldier.getAge())
-                .phone(soldier.getPhone())
-                .DOB(soldier.getDOB())
-                .dodId(soldier.getDodId())
+                .id(soldierEntity.getId())
+                .firstName(soldierEntity.getFirstName())
+                .lastName(soldierEntity.getLastName())
+                .soldierRank(soldierEntity.getSoldierRank())
+                .isMarried(soldierEntity.isMarried())
+                .unit(soldierEntity.getUnit())
+                .age(soldierEntity.getAge())
+                .gender(soldierEntity.getGender())
+                .email(soldierEntity.getEmail())
+                .address(soldierEntity.getAddress())
+                .city(soldierEntity.getCity())
+                .state(soldierEntity.getState())
+                .zip(soldierEntity.getZip())
+                .age(soldierEntity.getAge())
+                .phone(soldierEntity.getPhone())
+                .DOB(soldierEntity.getDOB())
+                .dodId(soldierEntity.getDodId())
                 .build();
     }
 
-    //convert Soldier dto to Entity using the @Builder annotation on DTO
-    public Soldier convertSoldierDtoToEntity(SoldierDto soldierDto) {
-        return Soldier.builder()
+    //convert SoldierEntity dto to Entity using the @Builder annotation on DTO
+    public SoldierEntity convertSoldierDtoToEntity(SoldierDto soldierDto) {
+        return SoldierEntity.builder()
                 .id(soldierDto.getId())
                 .firstName(soldierDto.getFirstName())
-                .firstName(soldierDto.getFirstName())
                 .lastName(soldierDto.getLastName())
+                .email(soldierDto.getEmail())
                 .soldierRank(soldierDto.getSoldierRank())
                 .isMarried(soldierDto.isMarried())
                 .unit(soldierDto.getUnit())

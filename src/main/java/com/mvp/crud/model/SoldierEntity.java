@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -12,11 +14,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Table(name = "soldier")
-@JsonInclude(JsonInclude.Include.NON_NULL)
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-public class Soldier {
+public class SoldierEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
     //cannot be null
     @Column(name = "first_name", nullable = false)
@@ -28,6 +31,7 @@ public class Soldier {
     @Column(name = "soldier_rank", nullable = false)
     private String soldierRank;
     @Column(name = "email", nullable = false)
+    @NotBlank(message = "Email cannot be empty")
     private String email;
     @Column(name = "is_married", nullable = false)
     private boolean isMarried;
@@ -41,6 +45,13 @@ public class Soldier {
     private String phone;
     private String DOB;
     private String dodId;
-    //to add later
-//    private LocalDateTime soldierDateTimeaAdded = LocalDateTime.now();
+    /*
+    to add later
+    private LocalDateTime soldierDateTimeaAdded = LocalDateTime.now();
+    private Instant soldierDateTimeaAdded = Instant.now();
+    */
+
+    //https://www.baeldung.com/jpa-one-to-one
+    @OneToOne(mappedBy = "soldier")
+    private SpouseEntity spouse;
 }

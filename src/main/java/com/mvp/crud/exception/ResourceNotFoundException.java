@@ -7,16 +7,17 @@ import java.io.Serial;
 
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class ResourceNotFoundException extends RuntimeException {
+    private final String resourceName;
+    private final String fieldName;
+    private final Long fieldValue;
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public ResourceNotFoundException(String message) {
-        super(message);
+    public ResourceNotFoundException(String resourceName, String fieldName, Long fieldValue) {
+        super(String.format("%s not found with %s: '%s'", resourceName, fieldName, fieldValue));
+        this.resourceName = resourceName;
+        this.fieldName = fieldName;
+        this.fieldValue = fieldValue;
     }
-
-    public ResourceNotFoundException(String message1, String message2, Long id) {
-        super(message1 + " not found with id " + message2 + " " + id);
-    }
-
 }

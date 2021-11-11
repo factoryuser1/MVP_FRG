@@ -1,7 +1,7 @@
 package com.mvp.crud.dto;
 
-import com.mvp.crud.model.Soldier;
-import com.mvp.crud.model.Spouse;
+import com.mvp.crud.model.SoldierEntity;
+import com.mvp.crud.model.SpouseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -9,8 +9,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class UserAuthenticationDto {
     private boolean isAuthenticated;
-    private Soldier soldier;
-    private Spouse spouse;
+    private SoldierEntity soldierEntity;
+    private SpouseEntity spouseEntity;
     private String token;
 
     public UserAuthenticationDto() {

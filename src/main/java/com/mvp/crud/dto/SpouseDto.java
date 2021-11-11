@@ -6,7 +6,7 @@ import lombok.Data;
 @Builder
 public class SpouseDto {
     private Long id;
-    //to join Spouse and Soldier
+    //to join SpouseEntity and SoldierEntity
     private Long soldierId;
     private String firstName;
     private String lastName;
@@ -17,7 +17,6 @@ public class SpouseDto {
     private String city;
     private String state;
     private String zip;
-    private String country;
     private String occupation;
     private String company;
 }
