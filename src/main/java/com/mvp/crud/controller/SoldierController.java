@@ -27,7 +27,7 @@ public class SoldierController {
     @GetMapping("/{id}")
     public ResponseEntity<SoldierDto> findSoldierById(@PathVariable(name = "id") Long id) {
         SoldierDto soldierResponseDTO = soldierServiceImpl.findSoliderById(id);
-        return new ResponseEntity<>(soldierResponseDTO, HttpStatus.OK);
+        return new ResponseEntity<>(soldierResponseDTO, HttpStatus.FOUND);
     }
 
     //3. add a new soldier
@@ -37,10 +37,9 @@ public class SoldierController {
         return new ResponseEntity<>(soldierResponseDTO, HttpStatus.CREATED);
     }
 
-    //4. update soldier by id
+    //4. update a specific soldier by id
     @PatchMapping("/{id}")
     public ResponseEntity<SoldierDto> updateSoldier(@PathVariable(name = "id") Long id, @RequestBody SoldierDto soldierDto) {
-
         SoldierDto soldierResponseDTO = soldierServiceImpl.updateSolider(id, soldierDto);
         return new ResponseEntity<>(soldierResponseDTO, HttpStatus.OK);
     }
@@ -49,7 +48,7 @@ public class SoldierController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteSoldier(@PathVariable Long id) {
         soldierServiceImpl.deleteSoldier(id);
-        return new ResponseEntity<>(String.format("SoldierEntity with id %d has been deleted", id), HttpStatus.OK);
+        return new ResponseEntity<>(String.format("Soldier with id %d has been deleted successfully.", id), HttpStatus.OK);
     }
 
 }

@@ -1,12 +1,8 @@
 package com.mvp.crud.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -21,17 +17,16 @@ public class SoldierEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    //cannot be null
     @Column(name = "first_name", nullable = false)
-    @NotBlank(message = "First name cannot be empty")
+    @NotBlank(message = "Soldier first name cannot be empty")
     private String firstName;
     @Column(name = "last_name", nullable = false)
-    @NotBlank(message = "Last name cannot be empty")
+    @NotBlank(message = "Soldier last name cannot be empty")
     private String lastName;
     @Column(name = "soldier_rank", nullable = false)
     private String soldierRank;
     @Column(name = "email", nullable = false)
-    @NotBlank(message = "Email cannot be empty")
+    @NotBlank(message = "Soldier email cannot be empty")
     private String email;
     @Column(name = "is_married", nullable = false)
     private boolean isMarried;
@@ -52,6 +47,16 @@ public class SoldierEntity {
     */
 
     //https://www.baeldung.com/jpa-one-to-one
-    @OneToOne(mappedBy = "soldier")
-    private SpouseEntity spouse;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinTable(name = "soldier_spouse",
+//            joinColumns = {@JoinColumn(name = "soldier_id", referencedColumnName = "id")},
+//            inverseJoinColumns = {@JoinColumn(name = "spouse_id", referencedColumnName = "id")})
+//    private SpouseEntity spouse;
+
+
+   @OneToOne(cascade = CascadeType.ALL)
+   @JoinColumn(name = "spouse_id")
+   private SpouseEntity spouse;
+
+
 }

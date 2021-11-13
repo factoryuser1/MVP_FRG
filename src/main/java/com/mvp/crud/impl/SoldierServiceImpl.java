@@ -4,6 +4,7 @@ import com.mvp.crud.dto.SoldierDto;
 import com.mvp.crud.exception.ResourceNotFoundException;
 import com.mvp.crud.model.SoldierEntity;
 import com.mvp.crud.repository.SoldierRepository;
+import com.mvp.crud.repository.SpouseRepository;
 import com.mvp.crud.service.SoldierService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class SoldierServiceImpl implements SoldierService {
 
     private final SoldierRepository soldierRepository;
+    private final SpouseRepository spouseRepository;
 
     @Override
     public Iterable<SoldierEntity> findAllSoldiers() {
@@ -22,7 +24,8 @@ public class SoldierServiceImpl implements SoldierService {
     @Override
     public SoldierDto findSoliderById(Long id) {
         //get soldier by id
-        SoldierEntity soldierEntityToFind = soldierRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("SoldierEntity", "id", id));
+        SoldierEntity soldierEntityToFind = soldierRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Soldier", "id", id));
         //convert entity to dto and return to controller to return to front-end without exposing the entity
         return convertSoldierEntityToDto(soldierEntityToFind);
     }
@@ -40,9 +43,10 @@ public class SoldierServiceImpl implements SoldierService {
     @Override
     public SoldierDto updateSolider(Long id, SoldierDto soldierDto) {
         //get soldier by id from the database
-        SoldierEntity soldierEntityToUpdate = soldierRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("SoldierEntity", "id", id));
+        SoldierEntity soldierEntityToUpdate = soldierRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Soldier", "id", id));
         //update soldier (to be refactored to automatically map the DTO fields to the entity fields using ModelMapper of ObjectMapper)
-//        soldierEntityToUpdate.setId(soldierDto.getId());
+        soldierEntityToUpdate.setId(soldierDto.getId());
         soldierEntityToUpdate.setFirstName(soldierDto.getFirstName());
         soldierEntityToUpdate.setLastName(soldierDto.getLastName());
         soldierEntityToUpdate.setSoldierRank(soldierDto.getSoldierRank());
@@ -60,14 +64,15 @@ public class SoldierServiceImpl implements SoldierService {
         soldierEntityToUpdate.setDodId(soldierDto.getDodId());
         //save updated soldier to DB and return the successfully updated soldier after saving
         SoldierEntity updatedSoldierEntity = soldierRepository.save(soldierEntityToUpdate);
-        //convert updated soldier to dto and return to controller to return to front end without exposing the entity
+        //convert updated soldier to dto and return to controller to return to front end without exposing the DAO entity
         return convertSoldierEntityToDto(updatedSoldierEntity);
     }
 
     @Override
     public void deleteSoldier(Long id) {
         //get soldier by id
-        SoldierEntity soldierEntityToDelete = soldierRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("SoldierEntity", "id", id));
+        SoldierEntity soldierEntityToDelete = soldierRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Soldier", "id", id));
         soldierRepository.delete(soldierEntityToDelete);
         //or
         //soldierRepository.deleteById(id);
