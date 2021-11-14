@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "spouse")
+@Table(name = "spouse", schema = "mvp")
 @Builder
 //@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity

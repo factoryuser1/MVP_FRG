@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "soldier")
+@Table(name = "soldier", schema = "mvp")
 //@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 public class SoldierEntity {
