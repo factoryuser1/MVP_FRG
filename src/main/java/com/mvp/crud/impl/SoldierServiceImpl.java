@@ -7,9 +7,11 @@ import com.mvp.crud.repository.SoldierRepository;
 import com.mvp.crud.repository.SpouseRepository;
 import com.mvp.crud.service.SoldierService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 @Service
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequiredArgsConstructor //for the repository injection
 public class SoldierServiceImpl implements SoldierService {
 
@@ -34,7 +36,7 @@ public class SoldierServiceImpl implements SoldierService {
     public SoldierDto addSolider(SoldierDto soldierDto) {
         //convert dto to entity
         SoldierEntity soldierEntityToAdd = convertSoldierDtoToEntity(soldierDto);
-        //save entity to DB
+        //save entity to DB and repository will return the saved entity
         SoldierEntity savedSoldierEntity = soldierRepository.save(soldierEntityToAdd);
         //convert entity to dto and return to controller to return to front-end without exposing the entity
         return convertSoldierEntityToDto(savedSoldierEntity);

@@ -34,7 +34,7 @@ public class SpouseServiceImpl implements SpouseService {
     public SpouseDto addSpouse(SpouseDto spouseDto) {
         //convert dto to entity
         SpouseEntity spouseEntityToAdd = convertSpouseDtoToEntity(spouseDto);
-        //save entity to database
+        //save entity to database and repository will return the saved entity
         SpouseEntity spouseEntitySaved = spouseRepository.save(spouseEntityToAdd);
         //convert entity to dto and return to controller to return to front-end without exposing the entity
         return convertSpouseEntityToDto(spouseEntitySaved);

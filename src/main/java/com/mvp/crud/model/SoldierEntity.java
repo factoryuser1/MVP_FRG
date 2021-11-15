@@ -1,5 +1,7 @@
 package com.mvp.crud.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -10,7 +12,8 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @Builder
 @Table(name = "soldier", schema = "mvp")
-//@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 public class SoldierEntity {
     @Id
