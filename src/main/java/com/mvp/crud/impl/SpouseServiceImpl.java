@@ -48,7 +48,7 @@ public class SpouseServiceImpl implements SpouseService {
                 new ResourceNotFoundException("Spouse", "id", id));
         //update spouse entity with new values from dto object
         //(to be refactored to automatically map the DTO fields to the entity fields using ModelMapper of ObjectMapper)
-        spouseEntityToUpdate.setId(spouseDto.getId());
+//        spouseEntityToUpdate.setId(spouseDto.getId());
         spouseEntityToUpdate.setSoldierId(spouseDto.getSoldierId());
         spouseEntityToUpdate.setFirstName(spouseDto.getFirstName());
         spouseEntityToUpdate.setLastName(spouseDto.getLastName());

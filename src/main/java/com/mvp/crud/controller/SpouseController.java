@@ -27,7 +27,7 @@ public class SpouseController {
     @GetMapping("/{id}")
     public ResponseEntity<SpouseDto> findSpouseById(@PathVariable(name = "id") Long id) {
         SpouseDto spouseResponseDTO = spouseServiceImpl.findSpouseById(id);
-        return new ResponseEntity<>(spouseResponseDTO, HttpStatus.FOUND);
+        return new ResponseEntity<>(spouseResponseDTO, HttpStatus.OK);
     }
 
     //3. add a new spouse
@@ -48,7 +48,7 @@ public class SpouseController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteSpouse(@PathVariable Long id){
         spouseServiceImpl.deleteSpouse(id);
-        return new ResponseEntity<>(String.format("Spouse with id %d has been deleted successfully.", id), HttpStatus.OK);
+        return new ResponseEntity<>(String.format("Spouse with id %d has been deleted successfully.", id), HttpStatus.NO_CONTENT);
     }
 
 }

@@ -3,10 +3,14 @@ package com.mvp.crud.controller;
 import com.mvp.crud.dto.SoldierDto;
 import com.mvp.crud.impl.SoldierServiceImpl;
 import com.mvp.crud.model.SoldierEntity;
+import com.sun.security.auth.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @CrossOrigin("*")
 @RestController
@@ -20,6 +24,7 @@ public class SoldierController {
     //1. find all soldiers
     @GetMapping
     public Iterable<SoldierEntity> findAllSoldiers() {
+
         return soldierServiceImpl.findAllSoldiers();
     }
 
@@ -27,7 +32,7 @@ public class SoldierController {
     @GetMapping("/{id}")
     public ResponseEntity<SoldierDto> findSoldierById(@PathVariable(name = "id") Long id) {
         SoldierDto soldierResponseDTO = soldierServiceImpl.findSoliderById(id);
-        return new ResponseEntity<>(soldierResponseDTO, HttpStatus.FOUND);
+        return new ResponseEntity<>(soldierResponseDTO, HttpStatus.OK);
     }
 
     //3. add a new soldier

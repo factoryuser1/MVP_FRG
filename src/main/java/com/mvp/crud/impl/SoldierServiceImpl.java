@@ -11,7 +11,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 @Service
-@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequiredArgsConstructor //for the repository injection
 public class SoldierServiceImpl implements SoldierService {
 
@@ -48,7 +47,7 @@ public class SoldierServiceImpl implements SoldierService {
         SoldierEntity soldierEntityToUpdate = soldierRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException("Soldier", "id", id));
         //update soldier (to be refactored to automatically map the DTO fields to the entity fields using ModelMapper of ObjectMapper)
-        soldierEntityToUpdate.setId(soldierDto.getId());
+//        soldierEntityToUpdate.setId(soldierDto.getId());
         soldierEntityToUpdate.setFirstName(soldierDto.getFirstName());
         soldierEntityToUpdate.setLastName(soldierDto.getLastName());
         soldierEntityToUpdate.setSoldierRank(soldierDto.getSoldierRank());
@@ -96,7 +95,6 @@ public class SoldierServiceImpl implements SoldierService {
                 .city(soldierEntity.getCity())
                 .state(soldierEntity.getState())
                 .zip(soldierEntity.getZip())
-                .age(soldierEntity.getAge())
                 .phone(soldierEntity.getPhone())
                 .DOB(soldierEntity.getDOB())
                 .dodId(soldierEntity.getDodId())
@@ -119,7 +117,6 @@ public class SoldierServiceImpl implements SoldierService {
                 .city(soldierDto.getCity())
                 .state(soldierDto.getState())
                 .zip(soldierDto.getZip())
-                .age(soldierDto.getAge())
                 .phone(soldierDto.getPhone())
                 .DOB(soldierDto.getDOB())
                 .dodId(soldierDto.getDodId())
